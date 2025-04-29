@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>SentimentLens</title>
+</head>
+<body>
+    <h1>Sentiment Analysis</h1>
+
+    <textarea id="textInput" rows="4" cols="50" placeholder="Schreib etwas hier..."></textarea>
+    <br><br>
+    <button onclick="analyzeText()">Analysieren</button>
+
+    <h2>Antwort:</h2>
+    <pre id="result"></pre>
+
+    <script>
+        async function analyzeText() {
+            const text = document.getElementById('textInput').value;
+            const response = await fetch('/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                body: text
+            });
+            const data = await response.json();
+            document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+        }
+    </script>
+</body>
+</html>

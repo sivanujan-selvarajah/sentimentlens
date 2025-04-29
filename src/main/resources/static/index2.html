@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>SentimentLens - Text Analyse</title>
+</head>
+<body>
+
+    <h1>Text Sentiment Analyse</h1>
+
+    <textarea id="textInput" rows="6" cols="60" placeholder="Gib hier deinen Text ein..."></textarea>
+    <br><br>
+    <button onclick="analyzeText()">Analysieren</button>
+
+    <h2>Erkannte Stimmung:</h2>
+    <pre id="result">Hier erscheint das Ergebnis...</pre>
+
+    <script>
+        async function analyzeText() {
+            const text = document.getElementById('textInput').value;
+            
+            const response = await fetch('/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                body: text
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                document.getElementById('result').innerText = JSON.stringify(result, null, 2);
+            } else {
+                document.getElementById('result').innerText = "Fehler: " + response.status;
+            }
+        }
+    </script>
+
+</body>
+</html>

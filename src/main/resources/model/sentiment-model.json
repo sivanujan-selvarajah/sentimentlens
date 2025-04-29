@@ -1,0 +1,17 @@
+{
+  "format": "pt",
+  "input": [
+    {
+      "name": "data",
+      "shape": [1, 1],
+      "dtype": "float32"
+    }
+  ],
+  "output": [
+    {
+      "name": "softmax_output",
+      "shape": [1, 2],
+      "dtype": "float32"
+    }
+  ]
+}
