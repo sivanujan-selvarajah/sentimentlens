@@ -106,7 +106,7 @@ MovieRecommendation/
      venv\Scripts\activate
      ```
 
-3.⁠ ⁠*Configure Environment Variables*:
+3.⁠ ⁠**Configure Environment Variables**:
    - Copy ⁠ .env_example ⁠ to ⁠ .env ⁠:
    
      ⁠ ```bash
