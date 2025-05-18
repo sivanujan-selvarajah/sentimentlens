@@ -113,7 +113,8 @@ MovieRecommendation/
      ```
 
    - Update the ⁠ .env ⁠ file with your MongoDB details. Use the following structure:
-     ⁠ ```env
+     ⁠ ```
+         env
      MONGO_URI=mongodb+srv://<USERNAME>:<PASSWORD>@movierecommendation.2y0pw.mongodb.net/?retryWrites=true&w=majority&appName=MovieRecommendation
      DB_NAME=netflix_db
      COLLECTION_NAME=recommendation_data
