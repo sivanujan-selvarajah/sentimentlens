@@ -111,15 +111,14 @@ MovieRecommendation/
      ```bash
      cp .env.example .env
      ```
-
-   - Update the ⁠ .env ⁠ file with your MongoDB details. Use the following structure:
-     ⁠ ```
-         env
+ 
+   - Update the `.env` file with your MongoDB details. Use the following structure:
+     ```env
      MONGO_URI=mongodb+srv://<USERNAME>:<PASSWORD>@movierecommendation.2y0pw.mongodb.net/?retryWrites=true&w=majority&appName=MovieRecommendation
      DB_NAME=netflix_db
      COLLECTION_NAME=recommendation_data
      SECRET_KEY="SeCrEt_K3y"
-      ⁠```
+     ```
 
    - Replace ⁠ <username> ⁠& ⁠ <password> ⁠with your actual MongoDB credentials.
 
