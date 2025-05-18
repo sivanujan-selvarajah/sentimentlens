@@ -88,19 +88,23 @@ _
 ## Installation
 
 1.⁠ ⁠*Clone the Repository*:
+
    ⁠ ```bash
    git clone https://github.com/laraAkg/MovieRecommendation.git
    cd MovieRecommendation
     ⁠```
 
 2.⁠ ⁠*Set Up a Virtual Environment*:
+
    - For macOS/Linux:
+
      ⁠ ```bash
      python3 -m venv venv
      source venv/bin/activate
       ⁠```
 
    - For Windows:
+
      ⁠ ```bash
      python -m venv venv
      venv\Scripts\activate
@@ -108,6 +112,7 @@ _
 
 3.⁠ ⁠*Configure Environment Variables*:
    - Copy ⁠ .env_example ⁠ to ⁠ .env ⁠:
+   
      ⁠ ```bash
      cp .env_example .env
       ⁠```
