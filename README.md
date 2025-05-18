@@ -82,7 +82,6 @@ MovieRecommendation/
         └── xai.ipynb                # Explainable AI (XAI) analysis notebook
 ```
  ⁠
-_
 
 
 ## Installation
@@ -131,9 +130,9 @@ _
    Due to file size limits on GitHub, the raw CSV files are not included in this repository.  
    Please download the following files from Kaggle and place them into the ⁠ data ⁠ folder before running the pipeline:
    
-    [movies_metadata.csv](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset?select=movies_metadata.csv)  
-    [credits.csv](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset?select=credits.csv)  
-    [keywords.csv](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset?select=keywords.csv)  
+[movies_metadata.csv](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset?select=movies_metadata.csv)  
+[credits.csv](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset?select=credits.csv)  
+[keywords.csv](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset?select=keywords.csv)  
 
    Place these files in the following directory structure:
 
@@ -147,9 +146,9 @@ _
 
 5.⁠ ⁠*Install Dependencies*:
    - Ensure you are in the *root directory* of the project (⁠ MovieRecommendation/ ⁠):
-     ⁠ bash
+     ⁠ ```bash
      pip install -r requirements.txt
-      ⁠
+      ⁠```
 
 ---
 
