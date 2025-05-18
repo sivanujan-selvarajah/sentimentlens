@@ -88,29 +88,29 @@ _
 ## Installation
 
 1.⁠ ⁠*Clone the Repository*:
-   ⁠ bash
+   ⁠ ```bash
    git clone https://github.com/laraAkg/MovieRecommendation.git
    cd MovieRecommendation
-    ⁠
+    ⁠```
 
 2.⁠ ⁠*Set Up a Virtual Environment*:
    - For macOS/Linux:
-     ⁠ bash
+     ⁠ ```bash
      python3 -m venv venv
      source venv/bin/activate
-      ⁠
+      ⁠```
 
    - For Windows:
-     ⁠ bash
+     ⁠ ```bash
      python -m venv venv
      venv\Scripts\activate
-      ⁠
+      ⁠```
 
 3.⁠ ⁠*Configure Environment Variables*:
    - Copy ⁠ .env_example ⁠ to ⁠ .env ⁠:
-     ⁠ bash
+     ⁠ ```bash
      cp .env_example .env
-      ⁠
+      ⁠```
 
    - Update the ⁠ .env ⁠ file with your MongoDB details. Use the following structure:
      ⁠ env
