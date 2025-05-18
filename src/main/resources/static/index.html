@@ -17,7 +17,7 @@
     <script>
         async function analyzeText() {
             const text = document.getElementById('textInput').value;
-            const response = await fetch('/analyze', {
+            const response = await fetch('/api/analyze', {  // ✅ angepasst
                 method: 'POST',
                 headers: {
                     'Content-Type': 'text/plain'

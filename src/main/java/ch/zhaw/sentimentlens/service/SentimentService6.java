@@ -5,68 +5,74 @@ import ai.djl.Model;
 import ai.djl.inference.Predictor;
 import ai.djl.modality.Classifications;
 import ai.djl.modality.Classifications.Classification;
-import ai.djl.ndarray.NDArray;
-import ai.djl.ndarray.NDList;
-import ai.djl.ndarray.NDManager;
-import ai.djl.translate.Translator;
-import ai.djl.translate.TranslatorContext;
-import ai.djl.translate.TranslateException;
-import ai.djl.translate.Batchifier;
+import ai.djl.nn.Block;
+import ai.djl.nn.SequentialBlock;
+import ai.djl.nn.core.Linear;
+import ai.djl.nn.Activation;
+import ch.zhaw.sentimentlens.translate.SentimentTranslator2;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 @Service
 public class SentimentService6 {
 
     private Model model;
     private Predictor<String, Classifications> predictor;
+    private List<String> vocabulary;
 
-@PostConstruct
-public void init() throws IOException, MalformedModelException, URISyntaxException {
-    model = Model.newInstance("sentiment-model"); // Angabe "pytorch" ist sehr wichtig!
+    @PostConstruct
+    public void init() throws IOException, MalformedModelException {
+        try {
+            // Modellstruktur wie im Training
+            model = Model.newInstance("sentiment-model");
+            Block block = new SequentialBlock()
+                    .add(Linear.builder().setUnits(256).build())
+                    .add(Activation.reluBlock())
+                    .add(Linear.builder().setUnits(128).build())
+                    .add(Activation.reluBlock())
+                    .add(Linear.builder().setUnits(64).build())
+                    .add(Activation.reluBlock())
+                    .add(Linear.builder().setUnits(2).build());
+            model.setBlock(block);
 
-    Path modelDir = Paths.get(getClass().getClassLoader().getResource("model").toURI());
+            // Modell laden
+            Path modelDir = Paths.get(getClass().getClassLoader().getResource("model").toURI());
+            model.load(modelDir, "sentiment-model");
 
-    model.load(modelDir, "sentiment-model"); // NICHT "sentiment-model.pt", sondern nur Basisname "sentiment-model"!
-    
-    predictor = model.newPredictor(new SentimentTranslator());
+          try (var stream = getClass().getClassLoader().getResourceAsStream("model/vocabulary.txt")) {
+            if (stream == null) {
+            throw new IOException("vocabulary.txt nicht gefunden!");
+    }
+    vocabulary = new ArrayList<>();
+    try (var scanner = new Scanner(stream)) {
+        while (scanner.hasNextLine()) {
+            vocabulary.add(scanner.nextLine());
+        }
+    }
 }
 
-    public String analyzeSentiment(String text) throws TranslateException {
+            // Predictor mit passendem Translator initialisieren
+            predictor = model.newPredictor(new SentimentTranslator2(vocabulary));
+        } catch (URISyntaxException e) {
+            throw new IOException("Fehler beim Laden des Pfads", e);
+        }
+    }
+
+    public String analyzeSentiment(String text) throws ai.djl.translate.TranslateException {
         Classifications classifications = predictor.predict(text);
         Classification best = classifications.best();
         return String.format("Erkanntes Sentiment: %s (%.2f%%)", best.getClassName(), best.getProbability() * 100);
     }
-
-    private static class SentimentTranslator implements Translator<String, Classifications> {
-        @Override
-        public NDList processInput(TranslatorContext ctx, String input) {
-            NDManager manager = ctx.getNDManager();
-            float feature = input.length() / 5.0f;
-            NDArray array = manager.create(new float[]{feature});
-            return new NDList(array);
-        }
-
-        @Override
-        public Classifications processOutput(TranslatorContext ctx, NDList list) {
-            NDArray probabilities = list.singletonOrThrow();
-            List<String> classes = List.of("positiv", "negativ");
-            return new Classifications(classes, probabilities);
-        }
-
-        @Override
-        public Batchifier getBatchifier() {
-            return Batchifier.STACK;
-        }
-    }
 }
-
 
 
 /* @PostConstruct

@@ -14,8 +14,8 @@ public class SamplingJava {
         String inputFilePath = "src/main/resources/train.ft.txt.bz2"; // Hier liegt deine train.ft.txt.bz2
         String outputFilePath = "src/main/resources/sampled_reviews.txt"; // Neue Datei wird erstellt
 
-        int targetPositive = 1000;
-        int targetNegative = 1000;
+        int targetPositive = 4000;
+        int targetNegative = 4000;
 
         List<String> positiveReviews = new ArrayList<>();
         List<String> negativeReviews = new ArrayList<>();
